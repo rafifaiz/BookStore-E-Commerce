@@ -1,0 +1,36 @@
+### 1. Mengambil Semua Buku
+GET http://localhost:3000/books
+
+### 2. Mencari Buku Berdasarkan Keyword Search
+GET http://localhost:3000/books?search=Martin
+
+### 3. Mengambil Buku yang Sedang Tersedia Saja
+GET http://localhost:3000/books?available=true
+
+### 4. Mengambil Detail Buku ID #1
+GET http://localhost:3000/books/1
+
+### 5. Menguji Error 404 pada ID yang Tidak Ada
+GET http://localhost:3000/books/999
+
+### 6. Menambah Buku Baru (POST)
+POST http://localhost:3000/books
+Content-Type: application/json
+
+{
+  "title": "Refactoring: Improving the Design of Existing Code",
+  "author": "Martin Fowler",
+  "isbn": "978-0201485677",
+  "publishedYear": 1999
+}
+
+### 7. Memperbarui Sebagian Data Buku ID #1 (PATCH)
+PATCH http://localhost:3000/books/1
+Content-Type: application/json
+
+{
+  "isAvailable": false
+}
+
+### 8. Menghapus Buku ID #2 (DELETE)
+DELETE http://localhost:3000/books/2

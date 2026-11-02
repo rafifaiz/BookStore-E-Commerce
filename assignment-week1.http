@@ -1,0 +1,118 @@
+### ==========================================
+### SKENARIO PENGUJIAN TUGAS MINGGU 1 (ASSIGNMENT 1)
+### E-Library API: Books & Members Management
+### ==========================================
+
+@baseUrl = http://localhost:3000
+
+### ------------------------------------------
+### 1. PENGUJIAN MODUL BUKU (BOOKS)
+### ------------------------------------------
+
+### 1.1. Ambil Semua Buku
+GET {{baseUrl}}/books
+
+### 1.2. Cari Buku Berdasarkan Kata Kunci (Query Param 'search')
+GET {{baseUrl}}/books?search=Domain
+
+### 1.3. Filter Buku yang Sedang Tersedia (Query Param 'available=true')
+GET {{baseUrl}}/books?available=true
+
+### 1.4. Ambil Detail Buku Berdasarkan ID (Route Param ':id')
+GET {{baseUrl}}/books/1
+
+### 1.5. Ambil Detail Buku ID Tidak Ditemukan (Harus 404 Not Found)
+GET {{baseUrl}}/books/999
+
+### 1.6. Tambah Buku Baru (POST)
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+  "title": "The Pragmatic Programmer: Your Journey To Mastery",
+  "author": "David Thomas, Andrew Hunt",
+  "isbn": "978-0135957059",
+  "publishedYear": 2019
+}
+
+### 1.7. Ganti Seluruh Data Buku ID #1 (PUT)
+PUT {{baseUrl}}/books/1
+Content-Type: application/json
+
+{
+  "title": "Clean Code: A Handbook of Agile Software Craftsmanship (Updated Edition)",
+  "author": "Robert C. Martin",
+  "isbn": "978-0132350884",
+  "publishedYear": 2020
+}
+
+### 1.8. Perbarui Sebagian Data Buku ID #1 (PATCH)
+PATCH {{baseUrl}}/books/1
+Content-Type: application/json
+
+{
+  "publishedYear": 2021
+}
+
+### 1.9. Pinjam Buku ID #1 (PATCH /books/:id/borrow) -> isAvailable: false
+PATCH {{baseUrl}}/books/1/borrow
+
+### 1.10. Coba Pinjam Buku ID #1 Lagi (Harus 400 Bad Request: 'Buku sedang dipinjam!')
+PATCH {{baseUrl}}/books/1/borrow
+
+### 1.11. Kembalikan Buku ID #1 (PATCH /books/:id/return) -> isAvailable: true
+PATCH {{baseUrl}}/books/1/return
+
+### 1.12. Hapus Buku ID #3 (DELETE)
+DELETE {{baseUrl}}/books/3
+
+
+### ------------------------------------------
+### 2. PENGUJIAN MODUL ANGGOTA (MEMBERS)
+### ------------------------------------------
+
+### 2.1. Ambil Semua Anggota
+GET {{baseUrl}}/members
+
+### 2.2. Cari Anggota Berdasarkan Nama/Email/Telepon
+GET {{baseUrl}}/members?search=Pranata
+
+### 2.3. Filter Anggota yang Aktif
+GET {{baseUrl}}/members?active=true
+
+### 2.4. Ambil Detail Anggota Berdasarkan ID
+GET {{baseUrl}}/members/1
+
+### 2.5. Detail Anggota Tidak Ditemukan (404 Not Found)
+GET {{baseUrl}}/members/888
+
+### 2.6. Tambah Anggota Baru (POST)
+POST {{baseUrl}}/members
+Content-Type: application/json
+
+{
+  "fullName": "Ahmad Dahlan",
+  "email": "ahmad.dahlan@example.com",
+  "phoneNumber": "081122334455"
+}
+
+### 2.7. Ganti Seluruh Data Anggota ID #2 (PUT)
+PUT {{baseUrl}}/members/2
+Content-Type: application/json
+
+{
+  "fullName": "Siti Aminah, M.Kom.",
+  "email": "siti.aminah.mkom@example.com",
+  "phoneNumber": "089876543999"
+}
+
+### 2.8. Perbarui Status Anggota ID #2 Menjadi Nonaktif (PATCH)
+PATCH {{baseUrl}}/members/2
+Content-Type: application/json
+
+{
+  "isActive": false
+}
+
+### 2.9. Hapus Anggota ID #3 (DELETE)
+DELETE {{baseUrl}}/members/3

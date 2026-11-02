@@ -1,0 +1,17 @@
+
+services:
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: Tuko_postgres_container
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "supersecretTUKO"
+      POSTGRES_DB: harkat_store_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_volume:/var/lib/postgresql/data
+
+volumes:
+  postgres_data_volume:
